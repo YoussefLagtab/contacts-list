@@ -33,7 +33,7 @@ export default class CreateContact extends Component {
 
 					cache.writeQuery({
 						query: CONTACTS_QUERY,
-						data: { contacts: [createContact].concat(...contacts) }
+						data: { contacts: contacts.concat([createContact]) }
 					})
 					this.setState({
 						firstname: '',
