@@ -1,0 +1,21 @@
+{
+  "name": "contacts-list",
+  "version": "1.0.0",
+  "description": "CRUD app with MERN and graphql",
+  "scripts": {
+    "install": "cd client && npm install; cd ../server && npm install",
+    "server":"node server/index.js",
+    "client":"cd client && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vanderwolk/contacts-list.git"
+  },
+  "keywords": [],
+  "author": "vanderwolk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vanderwolk/contacts-list/issues"
+  },
+  "homepage": "https://github.com/vanderwolk/contacts-list#readme"
+}
