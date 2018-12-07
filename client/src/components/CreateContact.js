@@ -5,23 +5,30 @@ import TextField from '@material-ui/core/TextField'
 import { CREATE_CONTACT, CONTACTS_QUERY } from '../gql'
 
 export default class CreateContact extends Component {
-	state = {
-		firstname: '',
-		lastname: '',
-		phone: ''
+	constructor() {
+		super()
+		this.state = {
+			firstname: '',
+			lastname: '',
+			phone: ''
+		}
+
+		this.inputRef = React.createRef()
 	}
-	sumbit = (e, createContact) => {
+	sumbit = async (e, createContact) => {
 		let { firstname, lastname, phone } = this.state
 		if (e.key !== 'Enter' || firstname === '' || lastname === '' || phone === '') return
-		// console.log(firstname, lastname, phone)
-		createContact({
+
+		await createContact({
 			variables: {
 				firstname,
 				lastname,
 				phone
 			}
 		})
+		this.inputRef.current.focus()
 	}
+
 	render() {
 		let { firstname, lastname, phone } = this.state
 		return (
@@ -45,11 +52,12 @@ export default class CreateContact extends Component {
 				{(createContact, { data }) => (
 					<form onKeyPress={e => this.sumbit(e, createContact)} noValidate autoComplete="off">
 						<TextField
-							required
+							inputRef={this.inputRef}
 							label="FirstName"
 							value={firstname}
 							onChange={e => this.setState({ firstname: e.target.value })}
 							margin="normal"
+							required
 						/>
 						<TextField
 							required
