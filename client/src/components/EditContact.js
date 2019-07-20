@@ -23,11 +23,13 @@ export default class EditContact extends Component {
 		let { firstname, lastname, phone } = this.props.contact
 		this.setState({ firstname, lastname, phone })
 	}
+	sumbit = (e, updateContact) => {
+		if (e.key === 'Enter') this._updateContact(updateContact)
+	}
 	_updateContact = updateContact => {
 		let { firstname, lastname, phone } = this.state
 		let { id } = this.props.contact
 		if (!firstname || !lastname || !phone) return
-		console.log(firstname, lastname, phone)
 		updateContact({
 			variables: {
 				id,
@@ -60,7 +62,7 @@ export default class EditContact extends Component {
 					})
 				}}
 			>
-				{(updateContact, { data }) => (
+				{updateContact => (
 					<>
 						<IconButton aria-label="edit" onClick={this.handleOpen}>
 							<EditIcon />
@@ -73,7 +75,7 @@ export default class EditContact extends Component {
 						>
 							<DialogTitle id="form-dialog-title">Edit</DialogTitle>
 							<DialogContent>
-								<form noValidate autoComplete="off">
+								<form onKeyPress={e => {this.sumbit(e, updateContact)}} noValidate autoComplete="off">
 									<TextField
 										required
 										label="FirstName"

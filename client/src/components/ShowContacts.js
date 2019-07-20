@@ -20,13 +20,13 @@ class App extends Component {
 			<Query query={CONTACTS_QUERY}>
 				{({ loading, error, data }) =>
 					error ? (
-						<p>Error!</p>
+						<p style={{ color: 'red' }}>Error!</p>
 					) : loading ? (
 						<CircularProgress size={50} />
 					) : (
 						<List>
 							{!data.contacts ? (
-								<p style={{ color: 'red' }}>no contacts!</p>
+								<p style={{ color: '#353535' }}>no contacts!</p>
 							) : (
 								<>
 									{data.contacts.map((c, i, arr) => (

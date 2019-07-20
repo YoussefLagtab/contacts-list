@@ -35,6 +35,7 @@ export default class CreateContact extends Component {
 			<Mutation
 				mutation={CREATE_CONTACT}
 				update={(cache, { data: { createContact } }) => {
+					if (!createContact) return alert('phone number already exists!')
 					let { contacts } = cache.readQuery({ query: CONTACTS_QUERY })
 					if (!contacts) contacts = []
 
@@ -49,7 +50,7 @@ export default class CreateContact extends Component {
 					})
 				}}
 			>
-				{(createContact, { data }) => (
+				{createContact => (
 					<form onKeyPress={e => this.sumbit(e, createContact)} noValidate autoComplete="off">
 						<TextField
 							inputRef={this.inputRef}
