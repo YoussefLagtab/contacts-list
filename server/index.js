@@ -1,8 +1,10 @@
 const { GraphQLServer } = require('graphql-yoga')
 const mongoose = require('mongoose')
 
+console.log("started!")
+
 mongoose.connect(
-	'mongodb://localhost:27017/contact-list',
+	'mongodb://localhost:27017/contacts-list',
 	{
 		useNewUrlParser: true
 	}
@@ -11,7 +13,7 @@ mongoose.connect(
 const Contact = mongoose.model('contacts', {
 	firstname: String,
 	lastname: String,
-	phone: String,
+	phone: { type : String , unique : true },
 	createdAt: String,
 	lastModified: String
 })
@@ -64,7 +66,11 @@ const resolvers = {
 	Mutation: {
 		createContact: async (_, { firstname, lastname, phone }) => {
 			let date = new Date().toJSON()
-			const contact = new Contact({
+			let contact
+			let contact_exists = await Contact.exists({phone})
+			if(contact_exists)
+				return null 
+			contact = new Contact({
 				firstname,
 				lastname,
 				phone,
