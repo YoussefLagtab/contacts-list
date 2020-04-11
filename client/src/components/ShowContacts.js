@@ -36,6 +36,7 @@ class App extends Component {
 													style={{ backgroundColor: '#269df3' }}
 												>{`${c.firstname[0].toUpperCase()}${c.lastname[0].toUpperCase()}`}</Avatar>
 												<ListItemText
+													style={{ paddingLeft: 10 }}
 													primary={`${c.firstname} ${c.lastname}`}
 													secondary={c.phone}
 												/>
